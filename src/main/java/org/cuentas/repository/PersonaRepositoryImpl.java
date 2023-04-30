@@ -10,5 +10,10 @@ public class PersonaRepositoryImpl implements PersonaRepository {
     public List<Persona> findAll() {
         return Persona.listAll();
     }
+
+    @Override
+    public Persona findOne(Integer id) {
+        return Persona.findById(id);
+    }
     
 }

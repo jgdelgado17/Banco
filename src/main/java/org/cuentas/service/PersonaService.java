@@ -18,4 +18,8 @@ public class PersonaService {
         return repository.findAll();
     }
 
+    public Persona findOne(int id){
+        return repository.findOne(id);
+    }
+
 }
