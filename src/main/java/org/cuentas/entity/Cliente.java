@@ -1,19 +1,19 @@
 package org.cuentas.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
 
 @Entity
-@Table(name = "cliente")
 public class Cliente extends Persona {
     private String contrasenia;
     private boolean estado;
 
-    @OneToOne
-    @JoinColumn(name = "id", nullable = false)
-    private Persona persona;
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cuenta> cuentas = new ArrayList<>();
 
     public String getContrasenia() {
         return contrasenia;
@@ -29,14 +29,6 @@ public class Cliente extends Persona {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
-    }
-
-    public Persona getPersona() {
-        return persona;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
     }
     
 }

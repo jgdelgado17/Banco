@@ -1,12 +1,18 @@
 package org.cuentas.entity;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 
 @Entity
-@Table(name = "persona")
-public class Persona extends PanacheEntity {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Persona {
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private int id;
     private String nombre;
     private String genero;
     private int edad;
@@ -61,5 +67,13 @@ public class Persona extends PanacheEntity {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }   
 
 }

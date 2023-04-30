@@ -2,23 +2,35 @@ package org.cuentas.entity;
 
 import java.util.Date;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "movimiento")
-public class Movimiento extends PanacheEntity {
+public class Movimiento{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private Date fecha;
     private String tipoMovimiento;
     private float valor;
     private float saldo;
-    
-    @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Cuenta cuenta;
+
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
+    }
 
     public Date getFecha() {
         return fecha;
@@ -52,12 +64,12 @@ public class Movimiento extends PanacheEntity {
         this.saldo = saldo;
     }
 
-    public Cuenta getCuenta() {
-        return cuenta;
+    public int getId() {
+        return id;
     }
 
-    public void setCuenta(Cuenta cuenta) {
-        this.cuenta = cuenta;
+    public void setId(int id) {
+        this.id = id;
     }
 
 }
