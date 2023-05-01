@@ -1,4 +1,6 @@
-package org.cuentas.repository;
+package org.cuentas.implementations;
+
+import org.cuentas.repository.ClienteRepository;
 
 import jakarta.enterprise.context.ApplicationScoped;
 

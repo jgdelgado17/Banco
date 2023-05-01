@@ -26,7 +26,7 @@ public class ClienteController {
     public Response getAllClientes() {
         List<Cliente> clientes = service.findAll();
         if (clientes.isEmpty())
-            return Response.noContent().build();
+            return Response.ok(clientes).status(Response.Status.NO_CONTENT).build();
         return Response.ok(clientes).build();
     }
 
@@ -50,7 +50,7 @@ public class ClienteController {
     @Path("/{id}")
     public Response putCliente(@PathParam("id") Long id, Cliente cliente) {
         Cliente c = service.findById(id);
-        if (c != null){
+        if (c != null) {
             Cliente updatedCliente = service.update(id, cliente);
             return Response.ok(updatedCliente).build();
         }

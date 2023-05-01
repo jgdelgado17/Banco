@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
@@ -24,9 +25,11 @@ public class Cuenta{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String numeroCuenta;
-    private String tipoCuenta;
-    private float saldoInicial;
+
+    @Column(unique = true)
+    private String numero_cuenta;
+    private String tipo_cuenta;
+    private float saldo_inicial;
     private boolean estado;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -38,27 +41,27 @@ public class Cuenta{
     private List<Movimiento> movimientos = new ArrayList<>();
 
     public String getNumeroCuenta() {
-        return numeroCuenta;
+        return numero_cuenta;
     }
 
     public void setNumeroCuenta(String numeroCuenta) {
-        this.numeroCuenta = numeroCuenta;
+        this.numero_cuenta = numeroCuenta;
     }
 
     public String getTipoCuenta() {
-        return tipoCuenta;
+        return tipo_cuenta;
     }
 
     public void setTipoCuenta(String tipoCuenta) {
-        this.tipoCuenta = tipoCuenta;
+        this.tipo_cuenta = tipoCuenta;
     }
 
     public float getSaldoInicial() {
-        return saldoInicial;
+        return saldo_inicial;
     }
 
     public void setSaldoInicial(float saldoInicial) {
-        this.saldoInicial = saldoInicial;
+        this.saldo_inicial = saldoInicial;
     }
 
     public boolean isEstado() {

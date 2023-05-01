@@ -1,5 +1,8 @@
 package org.cuentas.entity;
 
+import org.hibernate.annotations.Check;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,12 +17,15 @@ public abstract class Persona {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private int id;
     private String nombre;
+    @Check(constraints = "genero = 'm' OR genero = 'M' OR genero = 'f' OR genero = 'F'")
     private String genero;
     private int edad;
+
+    @Column(unique = true)
     private String identificacion;
     private String direccion;
     private String telefono;
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -74,6 +80,6 @@ public abstract class Persona {
 
     public void setId(int id) {
         this.id = id;
-    }   
+    }
 
 }

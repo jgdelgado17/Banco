@@ -22,7 +22,7 @@ public class Movimiento{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private Date fecha;
-    private String tipoMovimiento;
+    private String tipo_movimiento;
     private float valor;
     private float saldo;
 
@@ -48,11 +48,11 @@ public class Movimiento{
     }
 
     public String getTipoMovimiento() {
-        return tipoMovimiento;
+        return tipo_movimiento;
     }
 
     public void setTipoMovimiento(String tipoMovimiento) {
-        this.tipoMovimiento = tipoMovimiento;
+        this.tipo_movimiento = tipoMovimiento;
     }
 
     public float getValor() {
