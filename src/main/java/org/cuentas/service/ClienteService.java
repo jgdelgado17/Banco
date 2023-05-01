@@ -43,7 +43,7 @@ public class ClienteService {
     }
 
     @Transactional
-    public boolean delete(Long clienteId) {
+    public boolean deleteById(Long clienteId) {
         return repository.deleteById(clienteId);
     }
 

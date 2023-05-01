@@ -18,7 +18,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("/clientes")
-@Consumes(MediaType.APPLICATION_JSON)
+// @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ClienteController {
     @Inject
@@ -61,7 +61,11 @@ public class ClienteController {
     @DELETE
     @Path("/{id}")
     public Response deleteCliente(@PathParam("id") Long id) {
-        service.delete(id);
-        return Response.noContent().build();
+        Cliente cliente = service.findById(id);
+        if (cliente != null){
+            service.deleteById(id);
+            return Response.noContent().build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();        
     }
 }
