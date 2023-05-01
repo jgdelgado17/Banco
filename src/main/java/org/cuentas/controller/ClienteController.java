@@ -25,8 +25,11 @@ public class ClienteController {
     private ClienteService service;
 
     @GET
-    public List<Cliente> getAllClientes() {
-        return service.findAll();
+    public Response getAllClientes() {
+        List<Cliente> clientes = service.findAll();
+        if (clientes.isEmpty())
+            return Response.noContent().build();
+        return Response.ok(clientes).build();
     }
 
     @GET

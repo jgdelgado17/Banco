@@ -2,11 +2,16 @@ package org.cuentas.entity;
 
 import java.util.Date;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -22,6 +27,8 @@ public class Movimiento{
     private float saldo;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(foreignKey = @ForeignKey(name = "movimiento_cuenta_fk"))
+    @OnDelete(action = OnDeleteAction.RESTRICT)
     private Cuenta cuenta;
 
     public Cuenta getCuenta() {
