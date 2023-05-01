@@ -6,7 +6,6 @@ import org.cuentas.entity.Cliente;
 import org.cuentas.service.ClienteService;
 
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -18,7 +17,6 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("/clientes")
-// @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ClienteController {
     @Inject
@@ -51,21 +49,22 @@ public class ClienteController {
     @PUT
     @Path("/{id}")
     public Response putCliente(@PathParam("id") Long id, Cliente cliente) {
-        Cliente updatedCliente = service.update(id, cliente);
-        if (updatedCliente == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        Cliente c = service.findById(id);
+        if (c != null){
+            Cliente updatedCliente = service.update(id, cliente);
+            return Response.ok(updatedCliente).build();
         }
-        return Response.ok(updatedCliente).build();
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @DELETE
     @Path("/{id}")
     public Response deleteCliente(@PathParam("id") Long id) {
         Cliente cliente = service.findById(id);
-        if (cliente != null){
+        if (cliente != null) {
             service.deleteById(id);
             return Response.noContent().build();
         }
-        return Response.status(Response.Status.NOT_FOUND).build();        
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 }
