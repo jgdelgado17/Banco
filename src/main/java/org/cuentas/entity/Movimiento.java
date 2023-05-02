@@ -27,7 +27,7 @@ public class Movimiento{
     @Check(constraints = "tipo_movimiento = 'Retiro' OR tipo_movimiento = 'Deposito'")
     private String tipo_movimiento;
     private float valor;
-    private float saldo;
+    private float saldo_inicial;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -67,12 +67,12 @@ public class Movimiento{
         this.valor = valor;
     }
 
-    public float getSaldo() {
-        return saldo;
+    public float getSaldo_inicial() {
+        return saldo_inicial;
     }
 
-    public void setSaldo(float saldo) {
-        this.saldo = saldo;
+    public void setSaldo_inicial(float saldo_inicial) {
+        this.saldo_inicial = saldo_inicial;
     }
 
     public Cuenta getCuenta() {

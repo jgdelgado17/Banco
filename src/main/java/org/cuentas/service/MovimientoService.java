@@ -35,7 +35,7 @@ public class MovimientoService {
         upMovimiento.setFecha(movimiento.getFecha());
         upMovimiento.setTipo_movimiento(movimiento.getTipo_movimiento());
         upMovimiento.setValor(movimiento.getValor());
-        upMovimiento.setSaldo(movimiento.getSaldo());
+        upMovimiento.setSaldo_inicial(movimiento.getSaldo_inicial());
         upMovimiento.setCuenta(movimiento.getCuenta());
         repository.persist(upMovimiento);
         return upMovimiento;
