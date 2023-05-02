@@ -22,7 +22,7 @@ import jakarta.validation.constraints.NotNull;
 public class Movimiento{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private Date fecha;
     @Check(constraints = "tipo_movimiento = 'Retiro' OR tipo_movimiento = 'Deposito'")
     private String tipo_movimiento;
@@ -35,11 +35,11 @@ public class Movimiento{
     @OnDelete(action = OnDeleteAction.RESTRICT)
     private Cuenta cuenta;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

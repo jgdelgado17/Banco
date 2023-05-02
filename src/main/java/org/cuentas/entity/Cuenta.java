@@ -21,7 +21,7 @@ import jakarta.persistence.Table;
 public class Cuenta{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(unique = true)
     private String numero_cuenta;
@@ -40,11 +40,11 @@ public class Cuenta{
     // @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL, orphanRemoval = true)
     // private List<Movimiento> movimientos = new ArrayList<>();
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

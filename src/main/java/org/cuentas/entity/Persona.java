@@ -15,7 +15,7 @@ import jakarta.persistence.InheritanceType;
 public abstract class Persona {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private int id;
+    private Long id;
     private String nombre;
     @Check(constraints = "genero = 'm' OR genero = 'M' OR genero = 'f' OR genero = 'F'")
     private String genero;
@@ -74,11 +74,11 @@ public abstract class Persona {
         this.telefono = telefono;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
