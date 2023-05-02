@@ -3,9 +3,12 @@ package org.cuentas.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.Check;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.wildfly.common.annotation.NotNull;
 
+// import io.smallrye.common.constraint.NotNull;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +21,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+// import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "cuenta")
@@ -28,40 +32,51 @@ public class Cuenta{
 
     @Column(unique = true)
     private String numero_cuenta;
+
+    @Check(constraints = "tipo_cuenta = 'Ahorro' OR tipo_cuenta = 'Corriente'")
     private String tipo_cuenta;
     private float saldo_inicial;
     private boolean estado;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "cuenta_cliente_fk"))
     @OnDelete(action = OnDeleteAction.RESTRICT)
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Movimiento> movimientos = new ArrayList<>();
+    // @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL, orphanRemoval = true)
+    // private List<Movimiento> movimientos = new ArrayList<>();
 
-    public String getNumeroCuenta() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNumero_cuenta() {
         return numero_cuenta;
     }
 
-    public void setNumeroCuenta(String numeroCuenta) {
-        this.numero_cuenta = numeroCuenta;
+    public void setNumero_cuenta(String numero_cuenta) {
+        this.numero_cuenta = numero_cuenta;
     }
 
-    public String getTipoCuenta() {
+    public String getTipo_cuenta() {
         return tipo_cuenta;
     }
 
-    public void setTipoCuenta(String tipoCuenta) {
-        this.tipo_cuenta = tipoCuenta;
+    public void setTipo_cuenta(String tipo_cuenta) {
+        this.tipo_cuenta = tipo_cuenta;
     }
 
-    public float getSaldoInicial() {
+    public float getSaldo_inicial() {
         return saldo_inicial;
     }
 
-    public void setSaldoInicial(float saldoInicial) {
-        this.saldo_inicial = saldoInicial;
+    public void setSaldo_inicial(float saldo_inicial) {
+        this.saldo_inicial = saldo_inicial;
     }
 
     public boolean isEstado() {
@@ -72,22 +87,21 @@ public class Cuenta{
         this.estado = estado;
     }
 
-    // public int getId() {
-    //     return id;
-    // }
-
-    // public void setId(int id) {
-    //     this.id = id;
-    // }
-
-    public List<Movimiento> getMovimientos() {
-        return movimientos;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setMovimientos(List<Movimiento> movimientos) {
-        this.movimientos = movimientos;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
+
+    // public List<Movimiento> getMovimientos() {
+    //     return movimientos;
+    // }
+
+    // public void setMovimientos(List<Movimiento> movimientos) {
+    //     this.movimientos = movimientos;
+    // }
 
     
-
 }

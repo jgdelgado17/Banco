@@ -2,6 +2,7 @@ package org.cuentas.entity;
 
 import java.util.Date;
 
+import org.hibernate.annotations.Check;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -14,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "movimiento")
@@ -22,21 +24,23 @@ public class Movimiento{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private Date fecha;
+    @Check(constraints = "tipo_movimiento = 'Retiro' OR tipo_movimiento = 'Deposito'")
     private String tipo_movimiento;
     private float valor;
     private float saldo;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "movimiento_cuenta_fk"))
     @OnDelete(action = OnDeleteAction.RESTRICT)
     private Cuenta cuenta;
 
-    public Cuenta getCuenta() {
-        return cuenta;
+    public int getId() {
+        return id;
     }
 
-    public void setCuenta(Cuenta cuenta) {
-        this.cuenta = cuenta;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Date getFecha() {
@@ -47,12 +51,12 @@ public class Movimiento{
         this.fecha = fecha;
     }
 
-    public String getTipoMovimiento() {
+    public String getTipo_movimiento() {
         return tipo_movimiento;
     }
 
-    public void setTipoMovimiento(String tipoMovimiento) {
-        this.tipo_movimiento = tipoMovimiento;
+    public void setTipo_movimiento(String tipo_movimiento) {
+        this.tipo_movimiento = tipo_movimiento;
     }
 
     public float getValor() {
@@ -71,12 +75,13 @@ public class Movimiento{
         this.saldo = saldo;
     }
 
-    public int getId() {
-        return id;
+    public Cuenta getCuenta() {
+        return cuenta;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
     }
 
+    
 }

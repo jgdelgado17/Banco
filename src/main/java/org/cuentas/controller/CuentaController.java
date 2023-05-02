@@ -2,9 +2,9 @@ package org.cuentas.controller;
 
 import java.util.List;
 
-import org.cuentas.entity.Cliente;
+import org.cuentas.entity.Cuenta;
 import org.cuentas.exceptions.Message;
-import org.cuentas.service.ClienteService;
+import org.cuentas.service.CuentaService;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
@@ -17,37 +17,38 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-@Path("/clientes")
+@Path("/cuentas")
 @Produces(MediaType.APPLICATION_JSON)
-public class ClienteController {
+public class CuentaController {
+
     @Inject
-    private ClienteService service;
+    CuentaService service;
 
     @GET
-    public Response getAllClientes() {
+    public Response getAllCuentas() {
         try {
-            List<Cliente> clientes = service.findAll();
-            if (clientes.isEmpty())
-                return Response.ok(clientes).status(Response.Status.NO_CONTENT).build();
-            return Response.ok(clientes).build();
+            List<Cuenta> cuentas = service.findAll();
+            if (cuentas.isEmpty())
+                return Response.ok(cuentas).status(Response.Status.NO_CONTENT).build();
+            return Response.ok(cuentas).build();            
         } catch (Exception e) {
             String message = e.getCause().getCause().getCause().getMessage();
             Message messageResponse = new Message();
             messageResponse.buildMessage(message);
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(messageResponse).build();
+                    .entity(e.getMessage()).build();
         }
     }
 
     @GET
     @Path("/{id}")
-    public Response getClienteById(@PathParam("id") Long id) {
+    public Response getCuentaById(@PathParam("id") Long id) {
         try {
-            Cliente cliente = service.findById(id);
-            if (cliente == null) {
+            Cuenta cuenta = service.findById(id);
+            if (cuenta == null) {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
-            return Response.ok(cliente).build();
+            return Response.ok(cuenta).build();
 
         } catch (Exception e) {
             String message = e.getCause().getCause().getCause().getMessage();
@@ -59,10 +60,10 @@ public class ClienteController {
     }
 
     @POST
-    public Response postCliente(Cliente cliente) {
+    public Response postCuenta(Cuenta cuenta) {
         try {
-            Cliente createdCliente = service.save(cliente);
-            return Response.ok(createdCliente).status(Response.Status.CREATED).build();
+            Cuenta createdCuenta = service.save(cuenta);
+            return Response.ok(createdCuenta).status(Response.Status.CREATED).build();
         } catch (Exception e) {
             String message = e.getCause().getCause().getCause().getMessage();
             Message messageResponse = new Message();
@@ -74,12 +75,12 @@ public class ClienteController {
 
     @PUT
     @Path("/{id}")
-    public Response putCliente(@PathParam("id") Long id, Cliente cliente) {
+    public Response putCuenta(@PathParam("id") Long id, Cuenta cuenta) {
         try {
-            Cliente c = service.findById(id);
+            Cuenta c = service.findById(id);
             if (c != null) {
-                Cliente updatedCliente = service.update(id, cliente);
-                return Response.ok(updatedCliente).build();
+                Cuenta updatedCuenta = service.update(id, cuenta);
+                return Response.ok(updatedCuenta).build();
             }
             return Response.status(Response.Status.NOT_FOUND).build();
         } catch (Exception e) {
@@ -93,10 +94,10 @@ public class ClienteController {
 
     @DELETE
     @Path("/{id}")
-    public Response deleteCliente(@PathParam("id") Long id) {
+    public Response deleteCuenta(@PathParam("id") Long id) {
         try {
-            Cliente cliente = service.findById(id);
-            if (cliente != null) {
+            Cuenta cuenta = service.findById(id);
+            if (cuenta != null) {
                 service.deleteById(id);
                 return Response.noContent().build();
             }

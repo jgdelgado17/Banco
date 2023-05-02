@@ -30,8 +30,8 @@ public class ClienteService {
     }
 
     @Transactional
-    public Cliente update(Long clienteId, Cliente cliente) {
-        Cliente upCliente = repository.findById(clienteId);
+    public Cliente update(Long id, Cliente cliente) {
+        Cliente upCliente = repository.findById(id);
         upCliente.setNombre(cliente.getNombre());
         upCliente.setGenero(cliente.getGenero());
         upCliente.setEdad(cliente.getEdad());
@@ -43,8 +43,8 @@ public class ClienteService {
     }
 
     @Transactional
-    public boolean deleteById(Long clienteId) {
-        return repository.deleteById(clienteId);
+    public boolean deleteById(Long id) {
+        return repository.deleteById(id);
     }
 
 }
