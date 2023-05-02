@@ -38,6 +38,9 @@ public class MovimientoService {
 
     @Transactional
     public Movimiento update(Long id, Movimiento movimiento) {
+
+        actualizar_cuenta(movimiento);
+
         Movimiento upMovimiento = repository.findById(id);
         upMovimiento.setFecha(movimiento.getFecha());
         upMovimiento.setTipo_movimiento(movimiento.getTipo_movimiento());
