@@ -34,7 +34,7 @@ public class CuentaService {
         Cuenta upCuenta = repository.findById(id);
         upCuenta.setNumero_cuenta(cuenta.getNumero_cuenta());
         upCuenta.setTipo_cuenta(cuenta.getTipo_cuenta());
-        upCuenta.setSaldo_inicial(cuenta.getSaldo_inicial());
+        upCuenta.setSaldo(cuenta.getSaldo());
         upCuenta.setEstado(cuenta.isEstado());
         upCuenta.setCliente(cuenta.getCliente());
         repository.persist(upCuenta);

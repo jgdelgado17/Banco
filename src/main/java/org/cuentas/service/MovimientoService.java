@@ -1,5 +1,6 @@
 package org.cuentas.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.cuentas.entity.Cuenta;
@@ -29,7 +30,8 @@ public class MovimientoService {
 
     @Transactional
     public Movimiento save(Movimiento movimiento) {
-
+        movimiento.setFecha(LocalDateTime.now());
+        
         actualizar_cuenta(movimiento);
 
         repository.persist(movimiento);
@@ -61,7 +63,7 @@ public class MovimientoService {
         Cuenta cuenta_asociada = cuentaService.findById(id_cuenta);
 
         if (cuenta_asociada != null) {
-            float saldo_inicial = cuenta_asociada.getSaldo_inicial();
+            float saldo_inicial = cuenta_asociada.getSaldo();
             String tipo_movimiento = movimiento.getTipo_movimiento();
 
             movimiento.setSaldo_inicial(saldo_inicial);
@@ -69,14 +71,14 @@ public class MovimientoService {
             switch (tipo_movimiento) {
                 case "Retiro":
                     if (saldo_disponible(movimiento, saldo_inicial))
-                        cuenta_asociada.setSaldo_inicial(saldo_inicial - movimiento.getValor());
+                        cuenta_asociada.setSaldo(saldo_inicial - movimiento.getValor());
                     else
                         throw new IllegalArgumentException(
                                 "ERROR: Saldo no disponible. Detail: Tiene un saldo de " + saldo_inicial
                                         + ", insuficiente para realizar el retiro");
                     break;
                 case "Deposito":
-                    cuenta_asociada.setSaldo_inicial(saldo_inicial + movimiento.getValor());
+                    cuenta_asociada.setSaldo(saldo_inicial + movimiento.getValor());
                     break;
             }
             cuentaService.update(id_cuenta, cuenta_asociada);

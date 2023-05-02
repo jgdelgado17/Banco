@@ -17,7 +17,7 @@ public abstract class Persona {
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
     private String nombre;
-    @Check(constraints = "genero = 'm' OR genero = 'M' OR genero = 'f' OR genero = 'F'")
+    @Check(constraints = "genero = 'm' OR genero = 'f'")
     private String genero;
     private int edad;
 

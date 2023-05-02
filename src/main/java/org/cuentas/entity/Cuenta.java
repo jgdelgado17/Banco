@@ -18,7 +18,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "cuenta")
-public class Cuenta{
+public class Cuenta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,7 +28,7 @@ public class Cuenta{
 
     @Check(constraints = "tipo_cuenta = 'Ahorro' OR tipo_cuenta = 'Corriente'")
     private String tipo_cuenta;
-    private float saldo_inicial;
+    private float saldo;
     private boolean estado;
 
     @NotNull
@@ -37,7 +37,8 @@ public class Cuenta{
     @OnDelete(action = OnDeleteAction.RESTRICT)
     private Cliente cliente;
 
-    // @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL, orphanRemoval = true)
+    // @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL, orphanRemoval =
+    // true)
     // private List<Movimiento> movimientos = new ArrayList<>();
 
     public Long getId() {
@@ -64,12 +65,12 @@ public class Cuenta{
         this.tipo_cuenta = tipo_cuenta;
     }
 
-    public float getSaldo_inicial() {
-        return saldo_inicial;
+    public float getSaldo() {
+        return saldo;
     }
 
-    public void setSaldo_inicial(float saldo_inicial) {
-        this.saldo_inicial = saldo_inicial;
+    public void setSaldo(float saldo) {
+        this.saldo = saldo;
     }
 
     public boolean isEstado() {
@@ -89,12 +90,11 @@ public class Cuenta{
     }
 
     // public List<Movimiento> getMovimientos() {
-    //     return movimientos;
+    // return movimientos;
     // }
 
     // public void setMovimientos(List<Movimiento> movimientos) {
-    //     this.movimientos = movimientos;
+    // this.movimientos = movimientos;
     // }
 
-    
 }

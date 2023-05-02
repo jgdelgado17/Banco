@@ -1,5 +1,6 @@
 package org.cuentas.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.hibernate.annotations.Check;
@@ -23,7 +24,7 @@ public class Movimiento{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date fecha;
+    private LocalDateTime fecha;
     @Check(constraints = "tipo_movimiento = 'Retiro' OR tipo_movimiento = 'Deposito'")
     private String tipo_movimiento;
     private float valor;
@@ -43,11 +44,11 @@ public class Movimiento{
         this.id = id;
     }
 
-    public Date getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
