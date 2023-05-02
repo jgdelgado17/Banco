@@ -12,7 +12,8 @@ from cliente cl, cuenta ct, movimiento mv
 WHERE
 	cl.id = ct.cliente_id AND
 	ct.id = mv.cuenta_id AND
-	cl.id = 2;
+	cl.id = 2 AND
+	mv.fecha between '2023-05-01' AND '2023-05-03';
 	
 SELECT 
 	mv.fecha "Fecha", 
@@ -28,4 +29,5 @@ join cuenta ct
 	on cl.id = ct.cliente_id
 join movimiento mv
 	on ct.id = mv.cuenta_id
-WHERE cl.id = 2;
+WHERE cl.id = 2 AND
+	mv.fecha between '2023-05-01' AND '2023-05-03';
