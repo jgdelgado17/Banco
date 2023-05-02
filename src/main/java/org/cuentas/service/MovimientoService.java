@@ -30,23 +30,25 @@ public class MovimientoService {
     @Transactional
     public Movimiento save(Movimiento movimiento) {
 
-        Cuenta cuenta_asociada = cuentaService.findById(movimiento.getCuenta().getId());
+        Long id_cuenta = movimiento.getCuenta().getId();
+        Cuenta cuenta_asociada = cuentaService.findById(id_cuenta);
 
-        Long id_cuenta = cuenta_asociada.getId();
-        float saldo_inicial = cuenta_asociada.getSaldo_inicial();
-        String tipo_movimiento = movimiento.getTipo_movimiento();
+        if (cuenta_asociada != null) {
+            float saldo_inicial = cuenta_asociada.getSaldo_inicial();
+            String tipo_movimiento = movimiento.getTipo_movimiento();
 
-        movimiento.setSaldo_inicial(saldo_inicial);
+            movimiento.setSaldo_inicial(saldo_inicial);
 
-        switch (tipo_movimiento) {
-            case "Retiro":
-                cuenta_asociada.setSaldo_inicial(saldo_inicial - movimiento.getValor());
-                break;
-            case "Deposito":
-                cuenta_asociada.setSaldo_inicial(saldo_inicial + movimiento.getValor());
-                break;
+            switch (tipo_movimiento) {
+                case "Retiro":
+                    cuenta_asociada.setSaldo_inicial(saldo_inicial - movimiento.getValor());
+                    break;
+                case "Deposito":
+                    cuenta_asociada.setSaldo_inicial(saldo_inicial + movimiento.getValor());
+                    break;
+            }
+            cuentaService.update(id_cuenta, cuenta_asociada);
         }
-        cuentaService.update(id_cuenta, cuenta_asociada);
 
         repository.persist(movimiento);
         return movimiento;
