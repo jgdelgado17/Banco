@@ -54,7 +54,7 @@ public class MovimientoController {
             Movimiento createdMovimiento = service.save(movimiento);
             return Response.ok(createdMovimiento).status(Response.Status.CREATED).build();
         } catch (Exception e) {
-            String message = e.getCause().getCause().getCause().getMessage();
+            String message = e.getCause().getMessage();
             Message messageResponse = new Message();
             messageResponse.buildMessage(message);
             return Response.status(Response.Status.BAD_REQUEST)

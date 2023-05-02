@@ -65,7 +65,7 @@ public class CuentaController {
             Cuenta createdCuenta = service.save(cuenta);
             return Response.ok(createdCuenta).status(Response.Status.CREATED).build();
         } catch (Exception e) {
-            String message = e.getCause().getCause().getCause().getMessage();
+            String message = e.getCause().getMessage();
             Message messageResponse = new Message();
             messageResponse.buildMessage(message);
             return Response.status(Response.Status.BAD_REQUEST)
