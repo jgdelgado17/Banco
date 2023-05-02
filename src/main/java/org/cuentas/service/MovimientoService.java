@@ -65,7 +65,11 @@ public class MovimientoService {
 
             switch (tipo_movimiento) {
                 case "Retiro":
-                    cuenta_asociada.setSaldo_inicial(saldo_inicial - movimiento.getValor());
+                    if (saldo_disponible(movimiento, saldo_inicial))
+                        cuenta_asociada.setSaldo_inicial(saldo_inicial - movimiento.getValor());
+                    else
+                        throw new IllegalArgumentException(
+                                "ERROR: Saldo no disponible. Detail: Su saldo es insuficiente para realizar el retiro");
                     break;
                 case "Deposito":
                     cuenta_asociada.setSaldo_inicial(saldo_inicial + movimiento.getValor());
@@ -73,5 +77,11 @@ public class MovimientoService {
             }
             cuentaService.update(id_cuenta, cuenta_asociada);
         }
+    }
+
+    private boolean saldo_disponible(Movimiento movimiento, float saldo_inicial) {
+        if (saldo_inicial == 0.0 || (saldo_inicial - movimiento.getValor()) < 0.0)
+            return false;
+        return true;
     }
 }
