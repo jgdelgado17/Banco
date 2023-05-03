@@ -1,13 +1,8 @@
 package org.cuentas.entity;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Reporte {
-    // private Long id;
-    // private LocalDateTime fechInicio;
-    // private LocalDateTime fechaFin;
     private Timestamp fecha;
     private String cliente;
     private String numero_cuenta;
