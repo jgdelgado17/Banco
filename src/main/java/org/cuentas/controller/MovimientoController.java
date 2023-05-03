@@ -23,10 +23,18 @@ public class MovimientoController {
 
     @GET
     public Response getAllMovimientos() {
-        List<Movimiento> movimientos = service.findAll();
-        if (movimientos.isEmpty())
-            return Response.ok(movimientos).status(Response.Status.NO_CONTENT).build();
-        return Response.ok(movimientos).build();
+        try {
+            List<Movimiento> movimientos = service.findAll();
+            if (movimientos.isEmpty())
+                return Response.ok(movimientos).status(Response.Status.NO_CONTENT).build();
+            return Response.ok(movimientos).build();
+        } catch (Exception e) {
+            String message = e.getCause().getCause().getCause().getMessage();
+            Message messageResponse = new Message();
+            messageResponse.buildMessage(message);
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(messageResponse).build();
+        }
     }
 
     @GET
