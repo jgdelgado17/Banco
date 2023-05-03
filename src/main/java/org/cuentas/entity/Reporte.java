@@ -1,34 +1,36 @@
 package org.cuentas.entity;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Reporte {
     // private Long id;
     // private LocalDateTime fechInicio;
     // private LocalDateTime fechaFin;
-    private LocalDateTime fecha;
-    private String nombre;
+    private Timestamp fecha;
+    private String cliente;
     private String numero_cuenta;
     private String tipo;
     private float saldo_inicial;
-    private String estado;
-    private String movimiento;
-    private String saldo_disponible;
+    private boolean estado;
+    private float movimiento;
+    private float saldo_disponible;
 
-    public LocalDateTime getFecha() {
+    public Timestamp getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDateTime fecha) {
+    public void setFecha(Timestamp fecha) {
         this.fecha = fecha;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getCliente() {
+        return cliente;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
     }
 
     public String getNumero_cuenta() {
@@ -55,35 +57,28 @@ public class Reporte {
         this.saldo_inicial = saldo_inicial;
     }
 
-    public String getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 
-    public String getMovimiento() {
+    public float getMovimiento() {
         return movimiento;
     }
 
-    public void setMovimiento(String movimiento) {
+    public void setMovimiento(float movimiento) {
         this.movimiento = movimiento;
     }
 
-    public String getSaldo_disponible() {
+    public float getSaldo_disponible() {
         return saldo_disponible;
     }
 
-    public void setSaldo_disponible(String saldo_disponible) {
+    public void setSaldo_disponible(float saldo_disponible) {
         this.saldo_disponible = saldo_disponible;
-    }
-
-    @Override
-    public String toString() {
-        return "Reporte [fecha=" + fecha + ", nombre=" + nombre + ", numero_cuenta=" + numero_cuenta + ", tipo=" + tipo
-                + ", saldo_inicial=" + saldo_inicial + ", estado=" + estado + ", movimiento=" + movimiento
-                + ", saldo_disponible=" + saldo_disponible + "]";
     }
 
 }
